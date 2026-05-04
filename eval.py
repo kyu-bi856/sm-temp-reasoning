@@ -15,7 +15,7 @@ def load_TIME():
 def load_model(name): 
   model, tokenizer = FastLanguageModel.from_pretrained(
     name, 
-    load_in_4bit = True,
+    load_in_4bit = False,
     use_gradient_checkpointing = "unsloth" 
   )
   tokenizer.pad_token = tokenizer.eos_token
