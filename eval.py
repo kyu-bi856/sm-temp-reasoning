@@ -55,6 +55,7 @@ def get_args():
   parser.add_argument("--output_dir", type=str, required=True, default="../responses")  # output path for evaluation
   parser.add_argument("--result_dir", type=str, required=True, default="../metric_results")  # result path for evaluation
 
+  return parser.parse_args()
   
 def main():
   args = get_args()
