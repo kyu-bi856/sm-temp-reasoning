@@ -66,7 +66,7 @@ def main():
   if not os.path.exists(args.result_dir):
     os.makedirs(args.result_dir)
 
-  model, tokenizer = load_model("unsloth/Qwen3.5-0.8B-Base")
+  model, tokenizer = load_model("unsloth/Qwen3.5-0.8B")
   dataset = load_TIME_LITE()
 
   for i in tqdm(range(len(dataset))): 
