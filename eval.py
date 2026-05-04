@@ -21,6 +21,9 @@ def load_model(name):
   tokenizer.pad_token = tokenizer.eos_token
   return model, tokenizer
 
+def extract_answer(model_output):
+  return model_output[model_output.find("</think>") + 8 : ].strip("\n")
+
 def prompt_on_TLA(model, tokenizer, sample):
   messages = [
         { "role": "user",
