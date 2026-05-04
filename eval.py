@@ -1,0 +1,47 @@
+from datasets import load_dataset
+from unsloth import FastLanguageModel
+from tqdm import tqdm
+import torch
+
+def load_TIME_LITE():
+  return load_dataset("TensorTemplar/TIME-Lite-Atomic", split="train")
+
+def load_TIME(): 
+  return load_dataset("SylvainWei/TIME")
+
+def load_model(name): 
+  model, tokenizer = FastLanguageModel.from_pretrained(
+    MODEL_PATH, 
+    load_in_4bit = False,
+    use_gradient_checkpointing = "unsloth" 
+  )
+  tokenizer.pad_token = tokenizer.eos_token
+  return model, tokenizer
+
+def prompt_on_TLA(model, tokenizer, sample):
+  messages = [
+        { "role": "user",
+          "content" : [
+            {"type" : "text",  "text"  : sample["context"]},
+            {"type" : "text", "text" : "\nAnswer the following question with only the letter corresponding to the correct answer:\n"},
+            {"type" : "text", "text" : sample["question"]},
+            ],
+        },
+    ]
+
+  inputs = tokenizer.apply_chat_template(
+      messages,
+      add_generation_prompt=True,
+      tokenize=True,
+      padding=True,
+      return_tensors="pt",
+  ).to("cuda")
+
+  output = model.generate(
+    inputs,
+    max_new_tokens=16,
+    pad_token_id=tokenizer.pad_token_id
+)
+  return tokenizer.decode(output[0], skip_special_tokens=True)
+
+
