@@ -49,7 +49,11 @@ def prompt_on_TLA(model, tokenizer, sample):
 
 def get_args(): 
   parser = argparse.ArgumentParser()
-  # ARGS go here
+
+  parser.add_argument("--model_path", type=str, required=True, default=None)  # models for evaluation
+#  parser.add_argument("--dataset_path", type=str, required=True, default=None)
+  parser.add_argument("--output_dir", type=str, required=True, default="../responses")  # output path for evaluation
+  parser.add_argument("--result_dir", type=str, required=True, default="../metric_results")  # result path for evaluation
 
   
 def main():
