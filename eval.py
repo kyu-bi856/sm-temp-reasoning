@@ -2,6 +2,9 @@ from datasets import load_dataset
 from unsloth import FastLanguageModel
 from tqdm import tqdm
 import torch
+import json
+import os
+import argparse
 
 def load_TIME_LITE():
   return load_dataset("TensorTemplar/TIME-Lite-Atomic", split="train")
@@ -44,4 +47,19 @@ def prompt_on_TLA(model, tokenizer, sample):
 )
   return tokenizer.decode(output[0], skip_special_tokens=True)
 
+def get_args(): 
+  parser = argparse.ArgumentParser()
+  # ARGS go here
+
+  
+def main():
+  args = get_args()
+
+  if not os.path.exists(args.output_dir):
+    os.makedirs(args.output_dir)
+  if not os.path.exists(args.result_dir):
+    os.makedirs(args.result_dir)
+
+if __name__ == "__main__":
+  main()
 
