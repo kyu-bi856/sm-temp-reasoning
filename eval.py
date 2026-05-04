@@ -59,11 +59,23 @@ def get_args():
   
 def main():
   args = get_args()
+  correct = 0
 
   if not os.path.exists(args.output_dir):
     os.makedirs(args.output_dir)
   if not os.path.exists(args.result_dir):
     os.makedirs(args.result_dir)
+
+  model, tokenizer = load_model("unsloth/Qwen3.5-0.8B-Base")
+  dataset = load_TIME_LITE()
+
+  for i in tqdm(range(len(dataset))): 
+    out = prompt_on_TLA(model, tokenizer, dataset[i]) 
+    if extract_answer(out) == dataset[i]["gold_answer"]
+
+  print(f"\n Accuracy = {correct / len(dataset)}")
+  
+  
 
 if __name__ == "__main__":
   main()
