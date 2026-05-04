@@ -14,7 +14,7 @@ def load_TIME():
 
 def load_model(name): 
   model, tokenizer = FastLanguageModel.from_pretrained(
-    MODEL_PATH, 
+    name, 
     load_in_4bit = False,
     use_gradient_checkpointing = "unsloth" 
   )
