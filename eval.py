@@ -15,7 +15,7 @@ def load_dataset_from_path(PATH_NAME):
 def load_model(MODEL_NAME): 
   if MODEL_NAME in ["unsloth/Qwen3.5-0.8B", "unsloth/Qwen3.5-2B", "unsloth/gemma-4-E2B"]:
     model, tokenizer = FastLanguageModel.from_pretrained(
-      name, 
+      MODEL_NAME, 
       load_in_4bit = False,
       use_gradient_checkpointing = "unsloth" 
     )
