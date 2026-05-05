@@ -85,7 +85,7 @@ def main():
   for data, out in zip(dataset, all_outs):
     data["Response"] = out
 
-  output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}_{args.dataset_name}_{args.task}.json")
+  output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
 
   with open(output_path, "w", encoding="utf-8") as f: 
     json.dump(dataset, f, ensure_ascii=False) 
