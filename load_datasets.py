@@ -1,10 +1,14 @@
 import os
+from datasets import load_dataset
 import argparse
 
 
+def load_dataset(dataset_path):
+  return load_dataset(dataset_path)
+
 def get_args(): 
   parser = argparse.ArgumentParser()
-  parser.add_argument("--dataset_name", type=str, required=True, default=None)
+  parser.add_argument("--dataset_path", type=str, required=True, default=None)
 
 return parser.parse_args()
 
