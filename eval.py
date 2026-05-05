@@ -78,7 +78,7 @@ def main():
   for i in tqdm(range(len(dataset))): 
     out = prompt_on_TLA(model, tokenizer, dataset[i]) 
     all_outs.append(out)
-    print(f"MODEL OUT: {out}\nGOLD OUT: {dataset[i]["gold_answer"]}")
+    #print(f"MODEL OUT: {out}\nGOLD OUT: {dataset[i]["gold_answer"]}")
 
   for data, out in zip(dataset, all_outs):
     data["Response"] = out
