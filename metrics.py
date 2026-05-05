@@ -44,9 +44,9 @@ def main():
         correct_counters["level"][point["level"]] += 1
         correct_counters["metric_type"][point["metric_type"]] += 1
     else:
-      encode_pred = model.encode(model_pred)
-      encode_gold = model.encode(point["gold_answer"])
-      similarity = model.similarity(encode_pred, encode_gold)
+      encode_pred = similarity_model.encode(model_pred)
+      encode_gold = similarity_model.encode(point["gold_answer"])
+      similarity = similarity_model.similarity(encode_pred, encode_gold)
       
       correct_counters["dataset_name"][point["dataset_name"]] += similarity
       correct_counters["task"][point["task"]] += similarity
