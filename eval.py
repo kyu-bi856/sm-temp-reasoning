@@ -1,7 +1,6 @@
 from datasets import load_dataset
 from unsloth import FastLanguageModel
 from tqdm import tqdm
-from sentence_transformers import SentenceTransformer
 import torch
 import json
 import os
@@ -75,12 +74,12 @@ def main():
 
   with torch.no_grad():
     for i in tqdm(range(len(dataset))): 
-      pass
-      #out = prompt_on_TLA(model, tokenizer, dataset[i]) 
-      #all_outs.append(out)
 
-#  for data, out in zip(dataset, all_outs):
-#    data["Response"] = out
+      out = prompt_on_TLA(model, tokenizer, dataset[i]) 
+      all_outs.append(out)
+
+ for data, out in zip(dataset, all_outs):
+    data["Response"] = out
 
   output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
 
@@ -90,9 +89,6 @@ def main():
 
 #  metrics(dataset, args) 
 
-
-def metrics(dataset, args): 
-  similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 
 if __name__ == "__main__":
