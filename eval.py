@@ -74,7 +74,6 @@ def main():
 
   with torch.no_grad():
     for i in tqdm(range(len(dataset))): 
-
       out = prompt_on_TLA(model, tokenizer, dataset[i]) 
       all_outs.append(out)
 
