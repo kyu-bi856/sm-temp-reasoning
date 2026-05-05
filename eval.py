@@ -13,7 +13,7 @@ def load_dataset_from_path(PATH_NAME):
   return load_dataset(PATH_NAME, split="train")
 
 def load_model(MODEL_NAME): 
-  if MODEL_NAME in ["unsloth/Qwen-3.5-0.8B", "unsloth/Qwen-3.5-2B", "unsloth/gemma-4-E2B"]:
+  if MODEL_NAME in ["unsloth/Qwen3.5-0.8B", "unsloth/Qwen3.5-2B", "unsloth/gemma-4-E2B"]:
     model, tokenizer = FastLanguageModel.from_pretrained(
       name, 
       load_in_4bit = False,
