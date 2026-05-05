@@ -23,13 +23,10 @@ def load_model(MODEL_NAME):
     return model, tokenizer
     
  # if MODEL_NAME in ["Qwen800m_FT", "Qwen2B_FT", "gemmaE2B_FT"]: 
-    
-    
-  
 
 def extract_answer(model_output):
   print(model_output)
-  return model_output[model_output.find("</think>") + 8 : ].strip("\n")
+  return None
 
 def prompt_on_TLA(model, tokenizer, sample):
   inputs = tokenizer.apply_chat_template(
