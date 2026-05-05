@@ -78,15 +78,15 @@ def main():
 
   with torch.no_grad():
     for i in tqdm(range(len(dataset))): 
-      out = prompt_on_TLA(model, tokenizer, dataset[i]) 
-      all_outs.append(out)
-      #print(f"MODEL OUT: {out}\nGOLD OUT: {dataset[i]["gold_answer"]}")
+      #out = prompt_on_TLA(model, tokenizer, dataset[i]) 
+      #all_outs.append(out)
 
   for data, out in zip(dataset, all_outs):
     data["Response"] = out
 
   output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
 
+  print(output_path)
   with open(output_path, "w", encoding="utf-8") as f: 
     json.dump(dataset, f, ensure_ascii=False) 
 
