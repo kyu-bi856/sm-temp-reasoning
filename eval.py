@@ -82,11 +82,11 @@ def main():
 
   output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
 
-  print(output_path)
+  print(f"Output path for results is: {output_path}")
+  
   with open(output_path, "w", encoding="utf-8") as f: 
     json.dump(dataset, f, ensure_ascii=False) 
 
-#  metrics(dataset, args) 
 
 
 
