@@ -15,14 +15,13 @@ def load_dataset_from_path(PATH_NAME):
   return [point for point in TLA if point["dataset_name"] != "TIME-Lite-Dial"]
 
 def load_model(MODEL_NAME): 
-  if MODEL_NAME in ["unsloth/Qwen3.5-0.8B", "unsloth/Qwen3.5-2B", "unsloth/Qwen3.5-4B", "unsloth/Qwen3.5-9B"]:
-    model, tokenizer = FastLanguageModel.from_pretrained(
+  model, tokenizer = FastLanguageModel.from_pretrained(
       MODEL_NAME, 
       load_in_4bit = False,
       use_gradient_checkpointing = "unsloth" 
     )
-    tokenizer.pad_token = tokenizer.eos_token
-    return model, tokenizer
+  tokenizer.pad_token = tokenizer.eos_token
+  return model, tokenizer
     
  # if MODEL_NAME in ["Qwen800m_FT", "Qwen2B_FT", "gemmaE2B_FT"]: 
 
