@@ -28,9 +28,19 @@ def extract_answer(model_output):
   print(model_output)
   return None
 
+def prompt(sample): 
+  return [
+    {
+      "role" : "user",
+      "content": [
+        {"type":"text", "text": sample["prompt"]}
+      ]
+    }
+  ]
+
 def prompt_on_TLA(model, tokenizer, sample):
   inputs = tokenizer.apply_chat_template(
-      [{"role": "user", "content" : sample["prompt"]}],
+      prompt(sample),
       add_generation_prompt=True,
       tokenize=True,
       padding=True,
