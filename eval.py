@@ -77,7 +77,7 @@ def main():
       out = prompt_on_TLA(model, tokenizer, dataset[i]) 
       all_outs.append(out)
 
- for data, out in zip(dataset, all_outs):
+  for data, out in zip(dataset, all_outs):
     data["Response"] = out
 
   output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
