@@ -64,6 +64,7 @@ def main():
   output_path = os.path.join(f"{args.result_dir}/{args.input_dir}_metrics.json")
 
   print(f"Output path for metrics is: {output_path}")
+  print(accuracy_computations)
   
   with open(output_path, "w", encoding="utf-8") as f: 
     json.dump(accuracy_computations, f, ensure_ascii=False) 
