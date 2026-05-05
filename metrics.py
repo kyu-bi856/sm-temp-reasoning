@@ -29,7 +29,7 @@ def main():
   correct_counters = {"dataset_name" : Counter(), "task" : Counter(), "level" : Counter(), "metric_type" : Counter()}
   
 
-  with open("response/" + args.input_dir, "r", encoding="utf-8") as file:
+  with open("responses/" + args.input_dir, "r", encoding="utf-8") as file:
     dataset = json.load(file)
   
   for point in tqdm(dataset): 
