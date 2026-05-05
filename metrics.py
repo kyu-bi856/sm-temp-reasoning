@@ -46,7 +46,7 @@ def main():
     else:
       encode_pred = similarity_model.encode(model_pred)
       encode_gold = similarity_model.encode(point["gold_answer"])
-      similarity = similarity_model.similarity(encode_pred, encode_gold)
+      similarity = similarity_model.similarity(encode_pred, encode_gold).item()
       
       correct_counters["dataset_name"][point["dataset_name"]] += similarity
       correct_counters["task"][point["task"]] += similarity
