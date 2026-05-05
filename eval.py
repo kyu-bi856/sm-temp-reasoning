@@ -24,10 +24,6 @@ def load_model(MODEL_NAME):
     
  # if MODEL_NAME in ["Qwen800m_FT", "Qwen2B_FT", "gemmaE2B_FT"]: 
 
-def extract_answer(model_output):
-  print(model_output)
-  return None
-
 def prompt(sample): 
   return [
     {
@@ -80,6 +76,7 @@ def main():
   for i in tqdm(range(len(dataset))): 
     out = prompt_on_TLA(model, tokenizer, dataset[i]) 
     all_outs.append(out)
+    print(out)
 
   for data, out in zip(dataset, all_outs):
     data["Response"] = out
