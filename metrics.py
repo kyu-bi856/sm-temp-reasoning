@@ -52,11 +52,15 @@ def main():
       correct_counters["task"][point["task"]] += similarity
       correct_counters["level"][point["level"]] += similarity
       correct_counters["metric_type"][point["metric_type"]] += similarity
+    
+    dataset_info["dataset_name"][point["dataset_name"]] += 1
+    dataset_info["task"][point["task"]] += 1
+    dataset_info["level"][point["level"]] += 1
+    dataset_info["metric_type"][point["metric_type"]] += 1
 
   accuracy_computations = {}
   
-  print(dataset_info)
-  print(correct_counter)
+
   
   for key in dataset_info: 
     for counter_key in dataset_info[key]: 
