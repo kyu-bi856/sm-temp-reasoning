@@ -6,8 +6,11 @@ import json
 import os
 import argparse
 
-def load_TIME_LITE():
-  return load_dataset("TensorTemplar/TIME-Lite-Atomic", split="train")
+def load_dataset(PATH_NAME):
+  if PATH_NAME not in ["SylvainWei/TIME", "SylvainWei/TIME-Lite"]: 
+    raise NotImplementedError("<PATH_NAME> is either not a valid HuggingFace dataset or not implemented in the dataset evaluation.\n To know which datasets are allowed, check the README.")
+  
+  return load_dataset(PATH_NAME, split="train")
 
 def load_TIME(): 
   return load_dataset("SylvainWei/TIME")
