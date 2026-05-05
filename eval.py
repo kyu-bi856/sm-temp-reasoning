@@ -67,8 +67,6 @@ def main():
 
   if not os.path.exists(args.output_dir):
     os.makedirs(args.output_dir)
-  if not os.path.exists(args.result_dir):
-    os.makedirs(args.result_dir)
 
   model, tokenizer = load_model(args.model_path)
   dataset = load_dataset_from_path(args.dataset_path)
