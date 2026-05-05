@@ -1,0 +1,20 @@
+program: finetune.py
+name: ftsweep
+method: bayes
+metric:
+  goal: minimize
+  name: validation_loss
+parameters:
+  learning_rate:
+    min: 0.0001
+    max: 0.1
+    distribution: uniform
+  batch_size:
+    distribution: q_log_uniform_values
+    q: 8
+    min: 32
+    max: 256
+  epochs:
+    values: [5, 10, 15]
+  optimizer:
+    values: ["adam", "sgd"]
