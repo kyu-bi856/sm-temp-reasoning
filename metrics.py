@@ -7,6 +7,7 @@ import os
 import argparse
 import re
 import random
+import numpy as np
 
 def get_args(): 
   parser = argparse.ArgumentParser()
