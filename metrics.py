@@ -73,6 +73,8 @@ def main():
       acc = correct_counters[key][counter_key] / dataset_info[key][counter_key]
       accuracy_computations[f"{key}/{counter_key}"] = acc
 
+  accuracy_computations["total_accuracy"] = correct_counters["dataset_name"].total() / dataset_info["dataset_name"].total()
+  
   print("Computations Complete") 
 
   output_path = os.path.join(f"{args.result_dir}/{args.input_dir}_metrics.json")
