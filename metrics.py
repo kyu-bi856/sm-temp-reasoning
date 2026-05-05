@@ -8,8 +8,8 @@ import argparse
 def get_args(): 
   parser = argparse.ArgumentParser()
 
-  parser.add_argument("--dataset_path", type=str, required=True, default=None)
-  parser.add_argument("--result_dir", type=str, required=False, default="../metric_results")  # result path for evaluation
+  parser.add_argument("--input_dir", type=str, required=True, default=None)
+  parser.add_argument("--result_dir", type=str, required=False, default="./metric_results")  # result path for evaluation
 
   return parser.parse_args()
   
@@ -18,8 +18,8 @@ def main():
   
 
 
-  if not os.path.exists(args.output_dir):
-    os.makedirs(args.output_dir)
+  if not os.path.exists(args.input_dir):
+    os.makedirs(args.input_dir)
   if not os.path.exists(args.result_dir):
     os.makedirs(args.result_dir)
 
