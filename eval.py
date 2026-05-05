@@ -1,6 +1,7 @@
 from datasets import load_dataset
 from unsloth import FastLanguageModel
 from tqdm import tqdm
+from sentence_transformers import SentenceTransformer
 import torch
 import json
 import os
@@ -67,7 +68,47 @@ def main():
   model, tokenizer = load_model(args.model_path)
   dataset = load_dataset_from_path(args.dataset_path)
 
-  dataset_info_calculator = {"dataset_name": Counter(), "task_name": Counter(), "level_name" : Counter(), "task_type" : Counter()}
+  all_outs = []
+  
+  for i in tqdm(range(len(dataset))): 
+    out = prompt_on_TLA(model, tokenizer, dataset[i]) 
+    all_outs.append(out)
+
+  for data, out in zip(dataset, all_outs:
+    data["Response"] = out
+
+  output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}_{args.dataset_name}_{args.task}.json")
+
+  with open(output_path, "w", encoding="utf-8") as f: 
+    json.dump(dataset, f, ensure_ascii=False) 
+
+  metrics(dataset, args) 
+
+
+def metrics(dataset, args): 
+  similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+  
+  
+      
+    if dataset[i]["metric_type"] == "multi_choice":
+      if extract_answer(out) == dataset[i]["gold_answer"]:
+        correctness_calculator["dataset_name"][dataset[i]["dataset_name"]] += 1
+        correctness_calculator["task_name"][dataset[i]["task"]] += 1
+        correctness_calculator["level_name"][dataset[i]["level"]] += 1
+        correctness_calculator["task_type"][dataset[i]["metric_type"]] += 1
+    else:
+      encode_answer = model.encode(extract_answer(out))
+      encode_gold = model.encode(dataset[i]["gold_answer"])
+      similarity = model.similarity(encode_answer, encode_gold)
+
+      correctness_calculator["dataset_name"][dataset[i]["dataset_name"]] += similarity
+      correctness_calculator["task_name"][dataset[i]["task"]] += similarity
+      correctness_calculator["level_name"][dataset[i]["level"]] += similarity
+      correctness_calculator["task_type"][dataset[i]["metric_type"]] += similarity
+
+
+ dataset_info_calculator = {"dataset_name": Counter(), "task_name": Counter(), "level_name" : Counter(), "task_type" : Counter()}
   correctness_calculator = {"dataset_name": Counter(), "task_name": Counter(), "level_name" : Counter(), "task_type" : Counter()}
   
   for point in dataset: 
@@ -75,16 +116,6 @@ def main():
     dataset_info_calculator["task_name"][point["task"]] += 1
     dataset_info_calculator["level_name"][point["level"]] += 1
     dataset_info_calculator["task_type"][point["metric_type"]] += 1
-
-
-
-  for i in tqdm(range(len(dataset))): 
-    out = prompt_on_TLA(model, tokenizer, dataset[i]) 
-    
-    if extract_answer(out) == dataset[i]["gold_answer"]:
-      correct += 1
-
-  print(f"\n Accuracy = {correct / len(dataset)}")
   
   
 
