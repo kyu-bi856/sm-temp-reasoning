@@ -74,6 +74,7 @@ def main():
 
   for i in tqdm(range(len(dataset))): 
     out = prompt_on_TLA(model, tokenizer, dataset[i]) 
+    
     if extract_answer(out) == dataset[i]["gold_answer"]:
       correct += 1
 
