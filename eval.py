@@ -5,6 +5,8 @@ import torch
 import json
 import os
 import argparse
+import random
+import numpy as np
 
 def load_dataset_from_path(PATH_NAME):
   if PATH_NAME not in ["TensorTemplar/TIME-Lite-Atomic"]: 
@@ -63,6 +65,12 @@ def get_args():
   
 def main():
   args = get_args()
+  
+  seed = 42
+  random.seed(seed)
+  np.random.seed(seed)
+  torch.manual_seed(seed)
+  torch.cuda.manual_seed_all(seed)
 
   if not os.path.exists(args.output_dir):
     os.makedirs(args.output_dir)
