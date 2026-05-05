@@ -61,7 +61,7 @@ def main():
 
   print("Computations Complete") 
 
-  output_path = os.path.join(args.output_dir, f"{args.input_dir}_metrics.json")
+  output_path = os.path.join(args.result_dir, f"{args.input_dir}_metrics.json")
 
   print(f"Output path for metrics is: {output_path}")
   
