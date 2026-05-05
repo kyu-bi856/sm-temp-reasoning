@@ -29,16 +29,16 @@ def extract_answer(model_output):
   return None
 
 def prompt_on_TLA(model, tokenizer, sample):
-  inputs = tokenizer.apply_chat_template(
-      sample["prompt"],
-      add_generation_prompt=True,
-      tokenize=True,
-      padding=True,
-      return_tensors="pt",
-  ).to("cuda")
+ # inputs = tokenizer.apply_chat_template(
+ #     sample["prompt"],
+ #     add_generation_prompt=True,
+  #    tokenize=True,
+  #    padding=True,
+  #    return_tensors="pt",
+  #).to("cuda")
 
   output = model.generate(
-    inputs,
+    prompt,
     max_new_tokens=1024,
     pad_token_id=tokenizer.pad_token_id
 )
