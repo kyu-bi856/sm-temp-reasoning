@@ -6,6 +6,7 @@ import json
 import os
 import argparse
 import re
+import random
 
 def get_args(): 
   parser = argparse.ArgumentParser()
