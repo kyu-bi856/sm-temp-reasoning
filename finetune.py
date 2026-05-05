@@ -13,6 +13,8 @@ def set_model(model_path):
     load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
+  tokenizer.pad_token = tokenizer.eos_token
+  
   model = FastLanguageModel.get_peft_model(
     model,
     finetune_language_layers = True, 
