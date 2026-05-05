@@ -38,7 +38,7 @@ def prompt_on_TLA(model, tokenizer, sample):
   #).to("cuda")
 
   output = model.generate(
-    prompt,
+    sample["prompt"],
     max_new_tokens=1024,
     pad_token_id=tokenizer.pad_token_id
 )
