@@ -1,5 +1,6 @@
 from tqdm import tqdm
 from sentence_transformers import SentenceTransformer
+from collections import Counter
 import torch
 import json
 import os
@@ -15,8 +16,6 @@ def get_args():
   
 def main():
   args = get_args()
-  
-
 
   if not os.path.exists(args.input_dir):
     os.makedirs(args.input_dir)
@@ -26,38 +25,47 @@ def main():
   
   similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
+  dataset_info = {"dataset_name" : Counter(), "task" : Counter(), "level" : Counter(), "metric_type" : Counter()}
+  correct_counters = {"dataset_name" : Counter(), "task" : Counter(), "level" : Counter(), "metric_type" : Counter()}
+  
 
+  with open("response/" + args.input_dir, "r", encoding="utf-8") as file:
+    dataset = json.load(file)
+  
+  for point in tqdm(dataset): 
+    model_pred = re.sub(r'[^\w\s]', '', point["Response"])
+    gold = re.sub(r'[^\w\s]', '', point["gold_answer"])
 
-#  metrics(dataset, args) 
-
+    if point["metric_type"] == "multi_choice": 
+      if model_pred == gold: 
+        correct_counters["dataset_name"][point["dataset_name"]] += 1
+        correct_counters["task"][point["task"]] += 1
+        correct_counters["level"][point["level"]] += 1
+        correct_counters["metric_type"][point["metric_type"]] += 1
+    else:
+      encode_pred = model.encode(model_pred)
+      encode_gold = model.encode(point["gold_answer"])
+      similarity = model.similarity(encode_pred, encode_gold)
       
- #   if dataset[i]["metric_type"] == "multi_choice":
- #     if extract_answer(out) == dataset[i]["gold_answer"]:
- #       correctness_calculator["dataset_name"][dataset[i]["dataset_name"]] += 1
- #       correctness_calculator["task_name"][dataset[i]["task"]] += 1
- #       correctness_calculator["level_name"][dataset[i]["level"]] += 1
- #       correctness_calculator["task_type"][dataset[i]["metric_type"]] += 1
- #   else:
- #     encode_answer = model.encode(extract_answer(out))
- #     encode_gold = model.encode(dataset[i]["gold_answer"])
-#      similarity = model.similarity(encode_answer, encode_gold)
+      correct_counters["dataset_name"][point["dataset_name"]] += similarity
+      correct_counters["task"][point["task"]] += similarity
+      correct_counters["level"][point["level"]] += similarity
+      correct_counters["metric_type"][point["metric_type"]] += similarity
 
-  #    correctness_calculator["dataset_name"][dataset[i]["dataset_name"]] += similarity
-   #   correctness_calculator["task_name"][dataset[i]["task"]] += similarity
-   #   correctness_calculator["level_name"][dataset[i]["level"]] += similarity
-   #   correctness_calculator["task_type"][dataset[i]["metric_type"]] += similarity
+  accuracy_computations = {}
+  for key in dataset_info.keys(): 
+    for counter_key in dataset_info[key].keys(): 
+      acc = correct_counters[key][counter_key] / dataset_info[key][counter_key]
+      accuracy_computations[f"{key}/{counter_key}"] = acc
 
+  print("Computations Complete") 
 
- #dataset_info_calculator = {"dataset_name": Counter(), "task_name": Counter(), "level_name" : Counter(), "task_type" : Counter()}
-#  correctness_calculator = {"dataset_name": Counter(), "task_name": Counter(), "level_name" : Counter(), "task_type" : Counter()}
+  output_path = os.path.join(args.output_dir, f"{args.input_dir}_metrics.json")
+
+  print(f"Output path for metrics is: {output_path}")
   
-  #for point in dataset: 
-  #  dataset_info_calculator["dataset_name"][point["dataset_name"]] += 1
- #   dataset_info_calculator["task_name"][point["task"]] += 1
- #   dataset_info_calculator["level_name"][point["level"]] += 1
- #   dataset_info_calculator["task_type"][point["metric_type"]] += 1
-  
-  
+  with open(output_path, "w", encoding="utf-8") as f: 
+    json.dump(accuracy_computations, f, ensure_ascii=False) 
 
 if __name__ == "__main__":
   main()
