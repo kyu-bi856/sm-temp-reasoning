@@ -10,7 +10,8 @@ import argparse
 def load_dataset_from_path(PATH_NAME):
   if PATH_NAME not in ["TensorTemplar/TIME-Lite-Atomic"]: 
     raise NotImplementedError("<PATH_NAME> is either not implemented to allow for evaluation or it is not a valid HuggingFace dataset path.\n To know which datasets are allowed, check the README.")
-  return load_dataset(PATH_NAME, split="train")
+  TLA = load_dataset(PATH_NAME, split="train")
+  return [point for point in TLA if point["dataset_name"] != TIME-Lite-Dial]
 
 def load_model(MODEL_NAME): 
   if MODEL_NAME in ["unsloth/Qwen3.5-0.8B", "unsloth/Qwen3.5-2B", "unsloth/gemma-4-E2B"]:
