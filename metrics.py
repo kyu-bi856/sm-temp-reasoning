@@ -57,6 +57,7 @@ def main():
   for key in dataset_info: 
     for counter_key in dataset_info[key]: 
       acc = correct_counters[key][counter_key] / dataset_info[key][counter_key]
+      print(acc)
       accuracy_computations[f"{key}/{counter_key}"] = acc
 
   print("Computations Complete") 
