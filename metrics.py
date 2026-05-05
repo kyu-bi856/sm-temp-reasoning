@@ -18,6 +18,12 @@ def get_args():
 def main():
   args = get_args()
 
+  seed = 42
+  random.seed(seed)
+  np.random.seed(seed)
+  torch.manual_seed(seed)
+  torch.cuda.manual_seed_all(seed)
+
   if not os.path.exists(args.input_dir):
     os.makedirs(args.input_dir)
   if not os.path.exists(args.result_dir):
