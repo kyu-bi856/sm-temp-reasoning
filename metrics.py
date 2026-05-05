@@ -11,7 +11,7 @@ def get_args():
   parser = argparse.ArgumentParser()
 
   parser.add_argument("--input_dir", type=str, required=True, default=None)
-  parser.add_argument("--result_dir", type=str, required=False, default="./metric_results")  # result path for evaluation
+  parser.add_argument("--result_dir", type=str, required=False, default="/metric_results")  # result path for evaluation
 
   return parser.parse_args()
   
