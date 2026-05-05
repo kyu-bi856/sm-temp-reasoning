@@ -48,7 +48,9 @@ def prompt_on_TLA(model, tokenizer, sample):
     max_new_tokens=1024,
     pad_token_id=tokenizer.pad_token_id
 )
-  return tokenizer.decode(output[0], skip_special_tokens=True)
+  decoded_output = tokenizer.decode(output[0], skip_special_tokens=True)
+  
+  return decoded_output[decoded_output.find("</think>") + 5 : ].strip()
 
 def get_args(): 
   parser = argparse.ArgumentParser()
