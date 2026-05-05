@@ -54,6 +54,10 @@ def main():
       correct_counters["metric_type"][point["metric_type"]] += similarity
 
   accuracy_computations = {}
+  
+  print(dataset_info)
+  print(correct_counter)
+  
   for key in dataset_info: 
     for counter_key in dataset_info[key]: 
       acc = correct_counters[key][counter_key] / dataset_info[key][counter_key]
