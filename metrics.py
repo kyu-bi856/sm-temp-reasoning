@@ -1,13 +1,9 @@
 from tqdm import tqdm
 from sentence_transformers import SentenceTransformer
 from collections import Counter
-import torch
-import json
-import os
-import argparse
-import re
-import random
 import numpy as np
+import torch, json, os, argparse, re, random
+
 
 def get_args(): 
   parser = argparse.ArgumentParser()
