@@ -23,7 +23,6 @@ def set_model(model_path):
     finetune_mlp_modules = True,
     r = 16, 
     lora_alpha = 16, 
-    lora_alpha = 0, 
     bias = "none", 
     random_state = 42, 
     use_rslora = False,
