@@ -1,5 +1,4 @@
 from unsloth import FastLanguageModel
-from transformers import DataCollatorForLanguageModeling
 from trl import SFTTrainer, SFTConfig
 from datasets import load_dataset
 import torch, re, os, random, json, argparse
@@ -24,6 +23,7 @@ def set_model(model_path):
     finetune_mlp_modules = True,
     r = 16, 
     lora_alpha = 16, 
+    lora_dropout = 0,
     bias = "none", 
     random_state = 42, 
     use_rslora = False,
@@ -31,12 +31,12 @@ def set_model(model_path):
   )
 
   FastLanguageModel.for_training(model) 
+  train_ds = load_dataset("AmazonScience/TISER", split="train")
 
   trainer = SFTTrainer(
     model = model,
     tokenizer = tokenizer,
-    data_collator = DataCollatorForLanguageModeling(model, tokenizer, mlm=False), 
-    train_dataset = load_dataset("AmazonScience/TISER", split="train"), 
+    train_dataset = train_ds, 
     args = SFTConfig(
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
