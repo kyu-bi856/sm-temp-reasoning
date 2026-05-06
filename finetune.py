@@ -17,7 +17,7 @@ def set_model(model_path):
 
   model, tokenizer = FastLanguageModel.from_pretrained(
     model_path, 
-    load_in_8bit=True,
+    load_in_8bit=False,
     load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
@@ -51,7 +51,7 @@ def set_model(model_path):
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
-        max_steps = 200,
+        max_steps = 150,
        # num_train_epochs = 1, # Set this instead of max_steps for full training runs
         learning_rate = 2e-4,
         logging_steps = 1,
