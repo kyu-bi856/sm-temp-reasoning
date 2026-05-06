@@ -101,6 +101,8 @@ def main():
 
   save_name = f"LoRA_All"
   print(f"Model is saved to {save_name}")
+
+  pre_trained_model = pre_trained_model.merge_and_unload()
   
   pre_trained_model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
