@@ -5,6 +5,11 @@ import torch, re, os, random, json, argparse
 import numpy as np
 import wandb
 
+def formatting(dset): 
+  return {"text": [point["prompt"] for point in dset]}
+
+    
+
 def set_model(model_path): 
   if "Qwen3.5" not in model_path: 
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
@@ -31,12 +36,14 @@ def set_model(model_path):
   )
 
   FastLanguageModel.for_training(model) 
-  train_ds = load_dataset("AmazonScience/TISER", split="train")
+  train_ds = load_dataset("AmazonScience/TISER", split="train").map(formatting)
+
 
   trainer = SFTTrainer(
     model = model,
     tokenizer = tokenizer,
     train_dataset = train_ds, 
+    formatting_func = formatting,
     args = SFTConfig(
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
