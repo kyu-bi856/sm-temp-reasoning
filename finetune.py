@@ -105,6 +105,8 @@ def main():
 
 
   pre_trained_model = pre_trained_model.merge_and_unload()
+
+  pre_trained_model.to("cpu")
   
   pre_trained_model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
