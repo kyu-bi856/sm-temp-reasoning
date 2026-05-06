@@ -50,7 +50,7 @@ def set_model(model_path):
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
-        max_steps = 500,
+        max_steps = 250,
        # num_train_epochs = 1, # Set this instead of max_steps for full training runs
         learning_rate = 2e-4,
         logging_steps = 1,
@@ -98,7 +98,6 @@ def main():
   print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
   
   print(f"Peak reserved memory = {used_memory} GB.")
-  print(f"Peak reserved memory % of max memory = {used_percentage} %.")
 
   save_name = f"{args.model_path.replaceall("unsloth/", "")}_All"
   print(f"Model is saved to {save_name}")
