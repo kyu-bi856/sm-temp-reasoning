@@ -6,9 +6,8 @@ import numpy as np
 import wandb
 
 def formatting(dset):
-  prompts = dset["prompt"]
+  prompts = dset["question"]
   return {"text": prompts}
-
     
 
 def set_model(model_path): 
