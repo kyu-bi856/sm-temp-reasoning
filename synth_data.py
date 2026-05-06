@@ -73,7 +73,7 @@ def main():
   messages = [
       {  
         "role" : "user", 
-        "content": subtopics_prompt
+        "content": subtopics_prompt}
     ],
   temperature=1
   ).content
