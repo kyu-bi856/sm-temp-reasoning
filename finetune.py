@@ -1,5 +1,6 @@
 from unsloth import FastLanguageModel, UnslothLanguageDataCollator
 from trl import SFTTrainer, SFTConfig
+from datasets import load_dataset
 import torch, re, os, random, json, argparse
 import numpy as np
 import wandb
@@ -35,7 +36,7 @@ def set_model(model_path):
     model = model,
     tokenizer = tokenizer,
     data_collator = UnslothLanguageCollator(model, tokenizer), 
-    train_dataset = PLACEHOLDER, 
+    train_dataset = load_dataset("AmazonScience/TISER", split="train"), 
     args = SFTConfig(
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
