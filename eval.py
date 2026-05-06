@@ -1,12 +1,8 @@
 from datasets import load_dataset
 from unsloth import FastLanguageModel
 from tqdm import tqdm
-import torch
-import json
-import os
-import argparse
-import random
 import numpy as np
+import torch, json, os, argparse, random
 
 def load_dataset_from_path(PATH_NAME):
   if PATH_NAME not in ["TensorTemplar/TIME-Lite-Atomic"]: 
