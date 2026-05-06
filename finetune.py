@@ -10,14 +10,20 @@ def formatting(dset):
   return {"text": prompts}
     
 
-def set_model(model_path): 
+def set_model(model_path, PEFT_type, DROP): 
   if "Qwen3.5" not in model_path: 
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
 
+  if PEFT_type not in ["LoRA16, QLoRA, LoRA8"]: 
+    raise NotImplementedError(f"{PEFT_type} is not a valid LoRA scheme") 
+
+  if DROP not in ["All", "DropMLP", "DropAttn"]: 
+    raise NotImplementedError(f"{DROP} is not a valid freeze command") 
+  
   model, tokenizer = FastLanguageModel.from_pretrained(
     model_path, 
-    load_in_8bit=False,
-    load_in_4bit=True,
+    load_in_8bit=True if PEFT_type == "LoRA8" else False,
+    load_in_4bit=True if PEFT_type == "QLoRA" else False,
     use_gradient_checkpointing = "unsloth"
   )
   tokenizer.pad_token = tokenizer.eos_token
@@ -25,8 +31,8 @@ def set_model(model_path):
   model = FastLanguageModel.get_peft_model(
     model,
     finetune_language_layers = True, 
-    finetune_attention_modules = True, 
-    finetune_mlp_modules = True,
+    finetune_attention_modules = False if DROP == "DropAttn" else True, 
+    finetune_mlp_modules = False if DROP == "DropMLP" else True,
     r = 8, 
     lora_alpha = 8, 
     lora_dropout = 0,
@@ -74,12 +80,16 @@ def pull_dataset(ds_prompt):
 def get_args(): 
   parser = argparse.ArgumentParser()
 
-  parser.add_argument("--model_path", type=str, required=True, default=None)  # base model
- 
+  parser.add_argument("--model_path", type=str, required=True, default=None) # base model path
+  parser.add_argument("--PEFT_type", type=str, required=False, default="LoRA16")
+  parser.add_argument("--DROP", type=str, required=False, default="All") 
+  
   return parser.parse_args()
   
 def main(): 
   args = get_args()
+
+  
   
   seed = 42
   random.seed(seed)
@@ -87,7 +97,7 @@ def main():
   torch.manual_seed(seed)
   torch.cuda.manual_seed_all(seed)
 
-  pre_trained_model, tokenizer, trainer = set_model(args.model_path)
+  pre_trained_model, tokenizer, trainer = set_model(args.model_path, args.PEFT_type, args.DROP)
 
   trainer_stats = trainer.train()
   
@@ -98,7 +108,7 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = os.path.join(f"QLoRA_All")
+  save_name = os.path.join(f"{args.PEFT_type}_{args.DROP}")
   print(f"Model is saved to {save_name}")
   os.makedirs(save_name, exist_ok=True)
 
