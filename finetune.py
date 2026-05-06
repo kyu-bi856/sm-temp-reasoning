@@ -1,4 +1,5 @@
-from unsloth import FastLanguageModel, DataCollatorForLanguageModeling
+from unsloth import FastLanguageModel
+from transformers import DataCollatorForLanguageModeling
 from trl import SFTTrainer, SFTConfig
 from datasets import load_dataset
 import torch, re, os, random, json, argparse
