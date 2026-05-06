@@ -46,7 +46,7 @@ def prompt_on_TLA(model, tokenizer, sample):
 
   output = model.generate(
     inputs,
-    max_new_tokens=1024,
+    max_new_tokens=512,
     pad_token_id=tokenizer.pad_token_id
 )
   decoded_output = tokenizer.decode(output[0], skip_special_tokens=True)
