@@ -13,6 +13,7 @@ def get_args():
 
   parser.add_argument("--prompt_type", type=str, required=True, default=None)
   parser.add_argument("--output_dir", type=str, required=False, default="./synth_data")  # output path for evaluation
+  parser.add_argument("--api_key", type=str, required=True)
 
   return parser.parse_args()
 
@@ -55,9 +56,8 @@ def main():
   if not os.path.exists(args.output_dir):
     os.makedirs(args.output_dir)
 
-  client = anthropic.Anthropic() 
+  client = anthropic.Anthropic(api_key=args.api_key) 
   
-  n_questions = 270
 
   subtopics_prompt = """
   Given a topic, generate a list of 11 subtopics that are related to the topic. 
@@ -75,7 +75,7 @@ def main():
         "content": subtopics_prompt}
     ],
   temperature=1
-  ).content
+  ).content[0].text
 
   print(subtopics)
   
