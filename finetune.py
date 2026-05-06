@@ -51,7 +51,7 @@ def set_model(model_path):
       per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
-        max_steps = 250,
+        max_steps = 10,
        # num_train_epochs = 1, # Set this instead of max_steps for full training runs
         learning_rate = 2e-4,
         logging_steps = 1,
@@ -99,8 +99,10 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = f"LoRA_All"
+  save_name = os.path.join(f"LoRA_All")
   print(f"Model is saved to {save_name}")
+  os.makedirs(save_name, exist_ok=True)
+
 
   pre_trained_model = pre_trained_model.merge_and_unload()
   
