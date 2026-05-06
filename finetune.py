@@ -36,7 +36,8 @@ def set_model(model_path):
   )
 
   FastLanguageModel.for_training(model) 
-  train_ds = load_dataset("AmazonScience/TISER", split="train").map(formatting)
+  train_ds = load_dataset("AmazonScience/TISER", split="train")
+  train_ds = trainds.map(formatting, batched=True)
 
 
   trainer = SFTTrainer(
