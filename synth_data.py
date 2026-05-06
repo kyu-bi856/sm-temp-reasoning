@@ -43,9 +43,6 @@ Question: {QUESTION}
 Please provide a concise answer to the question based on the context. If the question cannot be answered based on the given context, respond with "There is no answer." Your answer should be as brief as possible while still being accurate.
       
     """
-  elif prompt_type == "SPEC": 
-    return f"""
-    """
   
 def main():
   args = get_args()
