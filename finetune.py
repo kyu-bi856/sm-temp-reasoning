@@ -11,7 +11,7 @@ def set_model(model_path):
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
 
   model, tokenizer = FastLanguageModel.from_pretrained(
-    "unsloth/Qwen3.5-0.8B", 
+    model_path", 
     load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
@@ -65,7 +65,7 @@ def pull_dataset(ds_prompt):
 def get_args(): 
   parser = argparse.ArgumentParser()
 
-  parser.add_argument("--model_path", type=str, required=False, default=None)  # base model
+  parser.add_argument("--model_path", type=str, required=True, default=None)  # base model
  
   return parser.parse_args()
   
@@ -79,7 +79,7 @@ def main():
   torch.cuda.manual_seed_all(seed)
 
 #  synth_ft_dataset = pull_dataset(args.synth_prompt_dataset)
-  pre_trained_model, tokenizer, trainer = set_model("PLACEHOLDER")
+  pre_trained_model, tokenizer, trainer = set_model(args.model_path)
 
   trainer_stats = trainer.train()
   
@@ -96,7 +96,7 @@ def main():
   print(f"Peak reserved memory % of max memory = {used_percentage} %.")
   print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.")
 
-  save_name = f"{args.model_path.replaceall("unsloth/", "")}_{args.synth_prompt_dataset.replaceall("synth_data/", "")}"
+  save_name = f"{args.model_path.replaceall("unsloth/", "")}_All"
   
   model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
