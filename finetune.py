@@ -5,8 +5,9 @@ import torch, re, os, random, json, argparse
 import numpy as np
 import wandb
 
-def formatting(dset): 
-  return {"text": [point["prompt"] for point in dset]}
+def formatting(dset):
+  prompts = dset["prompt"]
+  return {"text": prompts}
 
     
 
