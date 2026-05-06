@@ -87,25 +87,21 @@ def main():
   torch.manual_seed(seed)
   torch.cuda.manual_seed_all(seed)
 
-#  synth_ft_dataset = pull_dataset(args.synth_prompt_dataset)
   pre_trained_model, tokenizer, trainer = set_model(args.model_path)
 
   trainer_stats = trainer.train()
   
   used_memory = round(torch.cuda.max_memory_reserved() / 1024 / 1024 / 1024, 3)
-  used_memory_for_lora = round(used_memory - start_gpu_memory, 3)
   used_percentage = round(used_memory / max_memory * 100, 3)
-  lora_percentage = round(used_memory_for_lora / max_memory * 100, 3)
   
   print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
   print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
   
   print(f"Peak reserved memory = {used_memory} GB.")
-  print(f"Peak reserved memory for training = {used_memory_for_lora} GB.")
   print(f"Peak reserved memory % of max memory = {used_percentage} %.")
-  print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.")
 
   save_name = f"{args.model_path.replaceall("unsloth/", "")}_All"
+  print(f"Model is saved to {save_name}")
   
   model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
