@@ -14,7 +14,7 @@ def set_model(model_path, PEFT_type, DROP):
   if "Qwen3.5" not in model_path: 
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
 
-  if PEFT_type not in ["LoRA16, QLoRA, LoRA8"]: 
+  if PEFT_type not in ["LoRA16", "QLoRA", "LoRA8"]: 
     raise NotImplementedError(f"{PEFT_type} is not a valid LoRA scheme") 
 
   if DROP not in ["All", "DropMLP", "DropAttn"]: 
