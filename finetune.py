@@ -11,7 +11,7 @@ def set_model(model_path):
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
 
   model, tokenizer = FastLanguageModel.from_pretrained(
-    model_path, 
+    "unsloth/Qwen3.5-0.8B", 
     load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
@@ -65,8 +65,7 @@ def pull_dataset(ds_prompt):
 def get_args(): 
   parser = argparse.ArgumentParser()
 
-  parser.add_argument("--model_path", type=str, required=True, default=None)  # base model
-  parser.add_argument("--synth_prompt_dataset", type=str, required=True, default=None)
+  parser.add_argument("--model_path", type=str, required=False, default=None)  # base model
  
   return parser.parse_args()
   
