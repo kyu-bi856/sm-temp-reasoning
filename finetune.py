@@ -78,8 +78,8 @@ def main():
   torch.manual_seed(seed)
   torch.cuda.manual_seed_all(seed)
 
-  synth_ft_dataset = pull_dataset(args.synth_prompt_dataset)
-  pre_trained_model, tokenizer, trainer = set_model(args.model_path)
+#  synth_ft_dataset = pull_dataset(args.synth_prompt_dataset)
+  pre_trained_model, tokenizer, trainer = set_model("PLACEHOLDER")
 
   trainer_stats = trainer.train()
   
