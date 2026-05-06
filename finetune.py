@@ -92,7 +92,6 @@ def main():
   trainer_stats = trainer.train()
   
   used_memory = round(torch.cuda.max_memory_reserved() / 1024 / 1024 / 1024, 3)
-  used_percentage = round(used_memory / max_memory * 100, 3)
   
   print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
   print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
