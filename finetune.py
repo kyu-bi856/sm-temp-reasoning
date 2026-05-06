@@ -18,6 +18,7 @@ def set_model(model_path):
   model, tokenizer = FastLanguageModel.from_pretrained(
     model_path, 
     load_in_8bit=True,
+    load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
   tokenizer.pad_token = tokenizer.eos_token
