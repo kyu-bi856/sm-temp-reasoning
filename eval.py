@@ -19,8 +19,6 @@ def load_model(MODEL_NAME):
   tokenizer.pad_token = tokenizer.eos_token
   return model, tokenizer
     
- # if MODEL_NAME in ["Qwen800m_FT", "Qwen2B_FT", "gemmaE2B_FT"]: 
-
 def prompt(sample): 
   return [
     {
@@ -75,6 +73,7 @@ def main():
 
   all_outs = []
 
+  FastLanguageModel.for_inference(model) 
   with torch.no_grad():
     for i in tqdm(range(len(dataset))): 
       out = prompt_on_TLA(model, tokenizer, dataset[i]) 
