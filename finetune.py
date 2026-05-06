@@ -11,7 +11,7 @@ def set_model(model_path):
     raise NotImplementedError(f"{model_path} is not a model that this script can call")
 
   model, tokenizer = FastLanguageModel.from_pretrained(
-    model_path", 
+    model_path, 
     load_in_4bit=False,
     use_gradient_checkpointing = "unsloth"
   )
