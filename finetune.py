@@ -26,8 +26,8 @@ def set_model(model_path):
   model = FastLanguageModel.get_peft_model(
     model,
     finetune_language_layers = True, 
-    finetune_attention_modules = True, 
-    finetune_mlp_modules = False,
+    finetune_attention_modules = False, 
+    finetune_mlp_modules = True,
     r = 8, 
     lora_alpha = 8, 
     lora_dropout = 0,
@@ -99,7 +99,7 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = os.path.join(f"QLoRA_DropMLP")
+  save_name = os.path.join(f"QLoRA_DropAttn")
   print(f"Model is saved to {save_name}")
   os.makedirs(save_name, exist_ok=True)
 
