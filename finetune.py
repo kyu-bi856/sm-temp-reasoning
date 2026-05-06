@@ -35,7 +35,7 @@ def set_model(model_path):
   trainer = SFTTrainer(
     model = model,
     tokenizer = tokenizer,
-    data_collator = DataCollatorForLanguageModeling(model, tokenizer), 
+    data_collator = DataCollatorForLanguageModeling(model, tokenizer, mlm=False), 
     train_dataset = load_dataset("AmazonScience/TISER", split="train"), 
     args = SFTConfig(
       per_device_train_batch_size = 2,
