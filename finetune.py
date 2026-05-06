@@ -65,7 +65,7 @@ def set_model(model_path, PEFT_type, DROP):
         lr_scheduler_type = "linear",
         seed = 3407,
         output_dir = "outputs",
-        report_to = "none",     # For Weights and Biases
+        report_to = "wandb",     # For Weights and Biases
     )  
   )
   return model, tokenizer, trainer
@@ -97,9 +97,13 @@ def main():
   torch.manual_seed(seed)
   torch.cuda.manual_seed_all(seed)
 
+  wandb.init(project=f"{args.PEFT_type}_{args.DROP}")
+
   pre_trained_model, tokenizer, trainer = set_model(args.model_path, args.PEFT_type, args.DROP)
 
   trainer_stats = trainer.train()
+
+  wandb.finish()
   
   used_memory = round(torch.cuda.max_memory_reserved() / 1024 / 1024 / 1024, 3)
   
