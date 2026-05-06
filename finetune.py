@@ -17,7 +17,7 @@ def set_model(model_path):
 
   model, tokenizer = FastLanguageModel.from_pretrained(
     model_path, 
-    load_in_4bit=False,
+    load_in_8bit=True,
     use_gradient_checkpointing = "unsloth"
   )
   tokenizer.pad_token = tokenizer.eos_token
@@ -98,7 +98,7 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = f"{args.model_path.replace("unsloth/", "")}_All"
+  save_name = f"LoRA_All"
   print(f"Model is saved to {save_name}")
   
   pre_trained_model.save_pretrained(save_name)
