@@ -98,7 +98,7 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = f"{args.model_path.replaceall("unsloth/", "")}_All"
+  save_name = f"{args.model_path.replace("unsloth/", "")}_All"
   print(f"Model is saved to {save_name}")
   
   model.save_pretrained(save_name)
