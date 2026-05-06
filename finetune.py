@@ -18,7 +18,7 @@ def set_model(model_path):
   model, tokenizer = FastLanguageModel.from_pretrained(
     model_path, 
     load_in_8bit=False,
-    load_in_4bit=False,
+    load_in_4bit=True,
     use_gradient_checkpointing = "unsloth"
   )
   tokenizer.pad_token = tokenizer.eos_token
@@ -26,7 +26,7 @@ def set_model(model_path):
   model = FastLanguageModel.get_peft_model(
     model,
     finetune_language_layers = True, 
-    finetune_attention_modules = False, 
+    finetune_attention_modules = True, 
     finetune_mlp_modules = True,
     r = 8, 
     lora_alpha = 8, 
@@ -99,7 +99,7 @@ def main():
   
   print(f"Peak reserved memory = {used_memory} GB.")
 
-  save_name = os.path.join(f"LoRA_DropAttn")
+  save_name = os.path.join(f"QLoRA_All")
   print(f"Model is saved to {save_name}")
   os.makedirs(save_name, exist_ok=True)
 
