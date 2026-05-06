@@ -30,7 +30,7 @@ def set_model(model_path):
     loftq_config = None
   )
 
-  FastVisionModel.for_training(model) 
+  FastLanguageModel.for_training(model) 
 
   trainer = SFTTrainer(
     model = model,
