@@ -61,7 +61,7 @@ def set_model(model_path, PEFT_type, FREEZE):
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
         max_steps = 100,
-       # num_train_epochs = 1, # Set this instead of max_steps for full training runs
+       # num_train_epochs = 1
         learning_rate = 2e-4,
         logging_steps = 1,
         optim = "adamw_8bit",
@@ -69,17 +69,11 @@ def set_model(model_path, PEFT_type, FREEZE):
         lr_scheduler_type = "linear",
         seed = 3407,
         output_dir = "outputs",
-        report_to = "none",     # For Weights and Biases
+        report_to = "none",    
     )  
   )
   return model, tokenizer, trainer
     
-  
-
-def pull_dataset(ds_prompt): 
-  if ds_prompt not in ["Focus", "Gen"]: # 'Focus' and 'Gen' are placeholders
-    raise NotImplementedError("This prompt is not one of the two synthetic data prompts types")
-  
 
 def get_args(): 
   parser = argparse.ArgumentParser()
@@ -92,8 +86,6 @@ def get_args():
   
 def main(): 
   args = get_args()
-
-  
   
   seed = 42
   random.seed(seed)
@@ -120,11 +112,6 @@ def main():
 
   ft_model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
-
-  
-  
-  
-
 
 if __name__ == "__main__": 
   main() 
