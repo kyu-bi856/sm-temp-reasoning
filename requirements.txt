@@ -1,0 +1,7 @@
+# Dependencies
+torch
+numpy
+tqdm
+trl
+sentence_transformers
+unsloth
