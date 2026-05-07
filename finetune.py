@@ -116,7 +116,9 @@ def main():
   print(f"Model is saved to {save_name}")
   os.makedirs(save_name, exist_ok=True)
 
-  pre_trained_model.save_pretrained(save_name)
+  ft_model = pre_trained_model.merge_and_unload()
+
+  ft_model.save_pretrained(save_name)
   tokenizer.save_pretrained(save_name)
 
   
