@@ -9,7 +9,7 @@ pip install unsloth
 
 Step 2: Finetune a Model on TISER
 ~~~
-python finetune.py --model_path --PEFT_type --DROP
+python finetune.py --model_path --PEFT_type --FREEZE
 ~~~
 - model_path (required) can be any of the non-MoE Qwen3.5 series formatted like "unsloth/Qwen3.5-0.8B", for the 0.8B parameter model.
 -  PEFT_type (optional, defaults to 16-bit LoRA) is the quantizing used for LoRA, can be either "LoRA16", "LoRA8", or "QLoRA" (for 4-bit LoRA)
