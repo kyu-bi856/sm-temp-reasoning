@@ -13,8 +13,8 @@ python finetune.py --model_path --PEFT_type --DROP
 ~~~
 - model_path (required) can be any of the non-MoE Qwen3.5 series formatted like "unsloth/Qwen3.5-0.8B", for the 0.8B parameter model.
 -  PEFT_type (optional, defaults to 16-bit LoRA) is the quantizing used for LoRA, can be either "LoRA16", "LoRA8", or "QLoRA" (for 4-bit LoRA)
--  DROP (optional, defaults to not freezing any layers) is used to indicate whether or not the Attention or MLP layers will be frozen for the purposes of finetuning. ("DropMLP" for freezing MLP layers, "DropAttn" for freezing attention layer, and "All" for freezing none of them)
-Once run, the model will be saved as "{PEFT_type}_{DROP}" in the /sm-temp-reasoning/ directory and can be called by the eval.py file. 
+-  FREEZE (optional, defaults to not freezing any layers) is used to indicate whether or not the Attention or MLP layers will be frozen for the purposes of finetuning. ("FreezeMLP" for freezing MLP layers, "FreezeAttn" for freezing attention layer, and "None" for freezing none of them)
+Once run, the model will be saved as "{PEFT_type}_{FREEZE}" in the /sm-temp-reasoning/ directory and can be called by the eval.py file. 
 
 Step 3: Evaluate Pretrained or Finetuned Model on TIME-Lite
 ~~~
