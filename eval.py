@@ -52,7 +52,6 @@ def get_args():
 
   parser.add_argument("--model_path", type=str, required=True, default=None)  # models for evaluation
   parser.add_argument("--dataset_path", type=str, required=True, default=None)
-  parser.add_argument("--output_dir", type=str, required=False, default="./responses")  # output path for evaluation
 
   return parser.parse_args()
   
@@ -65,8 +64,8 @@ def main():
   torch.manual_seed(seed)
   torch.cuda.manual_seed_all(seed)
 
-  if not os.path.exists(args.output_dir):
-    os.makedirs(args.output_dir)
+  if not os.path.exists("./responses"):
+    os.makedirs("./responses")
 
   model, tokenizer = load_model(args.model_path)
   dataset = load_dataset_from_path(args.dataset_path)
@@ -82,7 +81,7 @@ def main():
   for data, out in zip(dataset, all_outs):
     data["Response"] = out
 
-  output_path = os.path.join(args.output_dir, f"{args.model_path.split('/')[-1]}.json")
+  output_path = os.path.join("./responses", f"{args.model_path.split('/')[-1]}.json")
 
   print(f"Output path for results is: {output_path}")
   
