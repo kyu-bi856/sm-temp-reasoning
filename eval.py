@@ -51,7 +51,7 @@ def get_args():
   parser = argparse.ArgumentParser()
 
   parser.add_argument("--model_path", type=str, required=True, default=None)  # models for evaluation
-  parser.add_argument("--dataset_path", type=str, required=True, default=None)
+  parser.add_argument("--dataset_path", type=str, required=False, default="TensorTemplar/TIME-Lite-Atomic")
 
   return parser.parse_args()
   
