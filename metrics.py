@@ -49,12 +49,12 @@ def main():
       encode_pred = similarity_model.encode(model_pred)
       encode_gold = similarity_model.encode(point["gold_answer"])
       similarity = similarity_model.similarity(encode_pred, encode_gold).item()
-      norm_sim = (1 + similarity) / 2
+      crunch_sim = max(0, similarity) 
       
-      correct_counters["dataset_name"][point["dataset_name"]] += norm_sim
-      correct_counters["task"][point["task"]] += norm_sim
-      correct_counters["level"][point["level"]] += norm_sim
-      correct_counters["metric_type"][point["metric_type"]] += norm_sim
+      correct_counters["dataset_name"][point["dataset_name"]] += crunch_sim
+      correct_counters["task"][point["task"]] += crunch_sim
+      correct_counters["level"][point["level"]] += crunch_sim
+      correct_counters["metric_type"][point["metric_type"]] += crunch_sim
     
     dataset_info["dataset_name"][point["dataset_name"]] += 1
     dataset_info["task"][point["task"]] += 1
