@@ -26,12 +26,17 @@ def set_model(model_path, PEFT_type, DROP):
     use_gradient_checkpointing = "unsloth"
   )
   tokenizer.pad_token = tokenizer.eos_token
+
+  if DROP == "DropMLP": 
+    target_mods = ["q_proj", "k_proj", "v_proj", "o_proj"]
+  elif DROP == "DropAttn": 
+    target_mods = ["gate_proj", "up_proj", "down_proj"] 
+  else: 
+    target_mods = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
   
   model = FastLanguageModel.get_peft_model(
     model,
-    finetune_language_layers = True, 
-    finetune_attention_modules = False if DROP == "DropAttn" else True, 
-    finetune_mlp_modules = False if DROP == "DropMLP" else True,
+    target_modules = target_mods, 
     r = 8, 
     lora_alpha = 8, 
     lora_dropout = 0,
