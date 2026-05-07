@@ -26,14 +26,12 @@ def main():
     os.makedirs(args.input_dir)
   if not os.path.exists(args.result_dir):
     os.makedirs(args.result_dir)
-
   
   similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
   dataset_info = {"dataset_name" : Counter(), "task" : Counter(), "level" : Counter(), "metric_type" : Counter()}
   correct_counters = {"dataset_name" : Counter(), "task" : Counter(), "level" : Counter(), "metric_type" : Counter()}
   
-
   with open(f"responses/{args.input_dir}.json", "r", encoding="utf-8") as file:
     dataset = json.load(file)
   
@@ -41,7 +39,7 @@ def main():
     model_pred = re.sub(r'[^\w\s]', '', point["Response"])
     gold = re.sub(r'[^\w\s]', '', point["gold_answer"])
 
-    if point["metric_type"] == "multi_choice": 
+    if point["metric_type"] == "multi_choice" or point["task"] == "Timeline": 
       if model_pred == gold: 
         correct_counters["dataset_name"][point["dataset_name"]] += 1
         correct_counters["task"][point["task"]] += 1
@@ -51,11 +49,12 @@ def main():
       encode_pred = similarity_model.encode(model_pred)
       encode_gold = similarity_model.encode(point["gold_answer"])
       similarity = similarity_model.similarity(encode_pred, encode_gold).item()
+      norm_sim = (1 + sim) / 2
       
-      correct_counters["dataset_name"][point["dataset_name"]] += similarity
-      correct_counters["task"][point["task"]] += similarity
-      correct_counters["level"][point["level"]] += similarity
-      correct_counters["metric_type"][point["metric_type"]] += similarity
+      correct_counters["dataset_name"][point["dataset_name"]] += norm_sim
+      correct_counters["task"][point["task"]] += norm_sim
+      correct_counters["level"][point["level"]] += norm_sim
+      correct_counters["metric_type"][point["metric_type"]] += norm_sim
     
     dataset_info["dataset_name"][point["dataset_name"]] += 1
     dataset_info["task"][point["task"]] += 1
