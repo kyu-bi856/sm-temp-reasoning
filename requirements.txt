@@ -1,4 +1,4 @@
-# Dependencies
+# Required Dependencies
 torch
 numpy
 tqdm
