@@ -49,7 +49,7 @@ def main():
       encode_pred = similarity_model.encode(model_pred)
       encode_gold = similarity_model.encode(point["gold_answer"])
       similarity = similarity_model.similarity(encode_pred, encode_gold).item()
-      norm_sim = (1 + sim) / 2
+      norm_sim = (1 + similarity) / 2
       
       correct_counters["dataset_name"][point["dataset_name"]] += norm_sim
       correct_counters["task"][point["task"]] += norm_sim
