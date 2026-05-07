@@ -31,5 +31,5 @@ python metrics.py --input_dir --result_dir
 - input_dir (required) is the path corresponding to the responses of a particular model
 - result_dir (not required, defaults to "metric_results") is the path corresponding to what directory the metrics will be placed into
 Once run, the metrics will be saved as a .json file to the directory passed in and can be viewed by any methodology to view a JSON file.
-Tasks that are MCQs OR Timeline tasks are evaluated on accuracy using exact match, while all other tasks are evaluated on normalized cosine similarity using max(0, cosine_similarity(pred, gold)) 
+Tasks that are MCQs OR Timeline tasks are evaluated on accuracy using exact match, while all other tasks are evaluated on normalized cosine similarity using $\frac{1 + sim(gold, pred)}{2}$
 
