@@ -16,7 +16,7 @@ def set_model(model_path, PEFT_type, FREEZE):
   if PEFT_type not in ["LoRA16", "QLoRA", "LoRA8"]: 
     raise NotImplementedError(f"{PEFT_type} is not a valid LoRA scheme") 
 
-  if FREZZE not in ["None", "FreezeMLP", "FreezeAttn"]: 
+  if FREEZE not in ["None", "FreezeMLP", "FreezeAttn"]: 
     raise NotImplementedError(f"{FREEZE} is not a valid freeze command") 
   
   model, tokenizer = FastLanguageModel.from_pretrained(
