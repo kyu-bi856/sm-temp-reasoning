@@ -4,4 +4,3 @@ numpy
 tqdm
 trl
 sentence_transformers
-unsloth
